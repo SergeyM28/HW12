@@ -1,6 +1,7 @@
 package ru.mikhailov.appnotes.services;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 import ru.mikhailov.appnotes.aspects.TrackUserAction;
 import ru.mikhailov.appnotes.model.Task;

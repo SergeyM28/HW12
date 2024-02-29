@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.mikhailov.appnotes.aspects.TrackUserAction;
 import ru.mikhailov.appnotes.model.Task;
+import ru.mikhailov.appnotes.services.FileGateway;
 import ru.mikhailov.appnotes.services.TaskService;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class TaskController {
     private final TaskService taskService;
+    private final FileGateway fileGateway;
 
     //Возвращает все задачи по get-запросу
     @GetMapping()
@@ -23,7 +25,9 @@ public class TaskController {
     //Добавляет задачу. В теле необходимо указать "description". Остальные параметры присваиваются автоматически.
     @PostMapping ()
     public Task addTask(@RequestBody Task task){
-        return taskService.addTask(task);
+        taskService.addTask(task);
+        fileGateway.writeToFile("hendler.txt", task.toString());
+        return task;
     }
 
     //Возвращает список задач по статусу, указанному в адресной строке
